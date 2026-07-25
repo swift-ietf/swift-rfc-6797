@@ -12,3 +12,7 @@ import RFC_6797
 let hsts = RFC_6797.StrictTransportSecurity(maxAge: 31_536_000, includeSubDomains: true)
 print(hsts.headerValue) // max-age=31536000; includeSubDomains
 ```
+
+## License
+
+Apache 2.0. See [LICENSE.md](LICENSE.md).
