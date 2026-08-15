@@ -10,16 +10,24 @@ extension RFC_6797_StrictTransportSecurity_Tests {
     struct Unit {
         @Test
         func `field name is owned by RFC 9110`() {
-            #expect(RFC_9110.Header.Field.Name.strictTransportSecurity.rawValue == "Strict-Transport-Security")
-            #expect(RFC_9110.Header.Field.Name("strict-transport-security") == .strictTransportSecurity)
+            #expect(
+                RFC_9110.Header.Field.Name.strictTransportSecurity.rawValue
+                    == "Strict-Transport-Security"
+            )
+            #expect(
+                RFC_9110.Header.Field.Name("strict-transport-security") == .strictTransportSecurity
+            )
         }
 
         @Test
         func `serializes the required directive`() {
-            #expect(RFC_6797.StrictTransportSecurity(maxAge: 31536000).headerValue == "max-age=31536000")
+            #expect(
+                RFC_6797.StrictTransportSecurity(maxAge: 31_536_000).headerValue
+                    == "max-age=31536000"
+            )
             #expect(
                 RFC_6797.StrictTransportSecurity(
-                    maxAge: 31536000,
+                    maxAge: 31_536_000,
                     includeSubDomains: .present
                 ).headerValue == "max-age=31536000; includeSubDomains"
             )
@@ -44,7 +52,7 @@ extension RFC_6797_StrictTransportSecurity_Tests {
             let value = RFC_6797.StrictTransportSecurity.parse(
                 "  max-age=31536000 ; includeSubDomains  "
             )
-            #expect(value?.maxAge == 31536000)
+            #expect(value?.maxAge == 31_536_000)
             #expect(value?.includeSubDomains == true)
         }
     }
