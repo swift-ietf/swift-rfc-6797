@@ -40,7 +40,11 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
             let directive = trimOWS(rawDirective)
             guard !directive.isEmpty else { return nil }
 
-            let parts = directive.split(separator: "=", maxSplits: 1, omittingEmptySubsequences: false)
+            let parts = directive.split(
+                separator: "=",
+                maxSplits: 1,
+                omittingEmptySubsequences: false
+            )
             let name = parts[0].lowercased()
 
             switch name {
@@ -48,8 +52,8 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
                 guard maxAge == nil, parts.count == 2 else { return nil }
                 let digits = parts[1]
                 guard !digits.isEmpty,
-                      digits.utf8.allSatisfy({ $0 >= 48 && $0 <= 57 }),
-                      let parsed = UInt64(digits)
+                    digits.utf8.allSatisfy({ $0 >= 48 && $0 <= 57 }),
+                    let parsed = UInt64(digits)
                 else { return nil }
                 maxAge = parsed
 
