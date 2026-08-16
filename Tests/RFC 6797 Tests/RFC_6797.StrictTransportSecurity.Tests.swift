@@ -34,7 +34,7 @@ extension RFC_6797_StrictTransportSecurity_Tests {
         }
     }
 
-    @Suite("Edge Case")
+    @Suite
     struct `Edge Case` {
         @Test
         func `rejects missing or unknown directives`() {
