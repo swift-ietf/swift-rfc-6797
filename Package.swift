@@ -1,14 +1,14 @@
-// swift-tools-version: 6.3.3
+// swift-tools-version: 6.4
 
 import PackageDescription
 
 let package = Package(
     name: "swift-rfc-6797",
     platforms: [
-        .macOS("27"),
-        .iOS("27"),
-        .tvOS("27"),
-        .watchOS("27")
+        .macOS(.v27),
+        .iOS(.v27),
+        .tvOS(.v27),
+        .watchOS(.v27),
     ],
     products: [
         .library(
@@ -29,7 +29,7 @@ let package = Package(
         .testTarget(
             name: "RFC 6797 Tests",
             dependencies: ["RFC 6797"]
-        )
+        ),
     ],
     swiftLanguageModes: [.v6]
 )
@@ -42,6 +42,6 @@ for target in package.targets where ![.system, .binary, .plugin, .macro].contain
         .enableUpcomingFeature("MemberImportVisibility"),
         .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
         .enableExperimentalFeature("Lifetimes"),
-        .enableExperimentalFeature("SuppressedAssociatedTypes")
+        .enableExperimentalFeature("SuppressedAssociatedTypes"),
     ]
 }
