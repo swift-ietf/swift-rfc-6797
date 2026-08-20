@@ -88,5 +88,9 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
 
 extension RFC_9110.Header.Field.Name {
     /// The RFC 6797 `Strict-Transport-Security` field name.
-    public static let strictTransportSecurity = Self("Strict-Transport-Security")
+    public static var strictTransportSecurity: Self {
+        get throws(RFC_9110.Header.Field.Name.Error) {
+            try Self("Strict-Transport-Security")
+        }
+    }
 }
