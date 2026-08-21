@@ -1,15 +1,13 @@
 public import RFC_9110
 
 extension RFC_6797 {
-    /// The `Strict-Transport-Security` field value defined by RFC 6797.
+
     public struct StrictTransportSecurity: Sendable {
-        /// The required `max-age` directive, in seconds.
+
         public let maxAge: UInt64
 
-        /// Whether the `includeSubDomains` directive is present.
         public let includeSubDomains: Bool
 
-        /// Creates an HSTS field value.
         public init(maxAge: UInt64, includeSubDomains: IncludeSubDomains = .absent) {
             self.maxAge = maxAge
             self.includeSubDomains = includeSubDomains == .present
@@ -23,7 +21,6 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
         self.includeSubDomains = includeSubDomains
     }
 
-    /// The canonical HTTP field value.
     public var headerValue: String {
         if includeSubDomains {
             return "max-age=\(maxAge); includeSubDomains"
@@ -31,7 +28,6 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
         return "max-age=\(maxAge)"
     }
 
-    /// Parses an RFC 6797 `Strict-Transport-Security` field value.
     public static func parse(_ value: String) -> Self? {
         var maxAge: UInt64?
         var includeSubDomains = false
@@ -70,7 +66,6 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
         return Self(maxAge: maxAge, includeSubDomains: includeSubDomains)
     }
 
-    /// Creates an HSTS field value by parsing its field value.
     public init?(_ value: String) {
         guard let parsed = Self.parse(value) else { return nil }
         self = parsed
@@ -87,7 +82,7 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
 }
 
 extension RFC_9110.Header.Field.Name {
-    /// The RFC 6797 `Strict-Transport-Security` field name.
+
     public static var strictTransportSecurity: Self {
         get throws(RFC_9110.Header.Field.Name.Error) {
             try Self("Strict-Transport-Security")
