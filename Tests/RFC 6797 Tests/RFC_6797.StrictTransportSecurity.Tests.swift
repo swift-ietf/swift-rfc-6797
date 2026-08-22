@@ -9,14 +9,12 @@ extension RFC_6797_StrictTransportSecurity_Tests {
     @Suite
     struct Unit {
         @Test
-        func `field name is owned by RFC 9110`() {
-            #expect(
-                RFC_9110.Header.Field.Name.strictTransportSecurity.rawValue
-                    == "Strict-Transport-Security"
-            )
-            #expect(
-                RFC_9110.Header.Field.Name("strict-transport-security") == .strictTransportSecurity
-            )
+        func `field name is owned by RFC 9110`() throws {
+            let canonical = try RFC_9110.Header.Field.Name.strictTransportSecurity
+            let lowercase = try RFC_9110.Header.Field.Name("strict-transport-security")
+
+            #expect(canonical.rawValue == "Strict-Transport-Security")
+            #expect(lowercase == canonical)
         }
 
         @Test
