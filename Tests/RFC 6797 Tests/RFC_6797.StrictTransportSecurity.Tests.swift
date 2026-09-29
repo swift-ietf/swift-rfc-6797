@@ -10,8 +10,8 @@ extension RFC_6797_StrictTransportSecurity_Tests {
     struct Unit {
         @Test
         func `field name is owned by RFC 9110`() throws {
-            let canonical = try RFC_9110.Header.Field.Name.strictTransportSecurity
-            let lowercase = try RFC_9110.Header.Field.Name("strict-transport-security")
+            let canonical = try RFC_9110.Field.Name.strictTransportSecurity
+            let lowercase = try RFC_9110.Field.Name("strict-transport-security")
 
             #expect(canonical.rawValue == "Strict-Transport-Security")
             #expect(lowercase == canonical)

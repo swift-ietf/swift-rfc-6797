@@ -81,10 +81,10 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
     }
 }
 
-extension RFC_9110.Header.Field.Name {
+extension RFC_9110.Field.Name {
 
     public static var strictTransportSecurity: Self {
-        get throws(RFC_9110.Header.Field.Name.Error) {
+        get throws(RFC_9110.Field.Name.Error) {
             try Self("Strict-Transport-Security")
         }
     }
