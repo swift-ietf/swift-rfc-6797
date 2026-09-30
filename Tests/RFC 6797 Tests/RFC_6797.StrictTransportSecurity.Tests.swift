@@ -35,11 +35,24 @@ extension RFC_6797_StrictTransportSecurity_Tests {
     @Suite
     struct `Edge Case` {
         @Test
-        func `rejects missing or unknown directives`() {
+        func `rejects a missing or malformed max-age`() {
             #expect(RFC_6797.StrictTransportSecurity.parse("includeSubDomains") == nil)
-            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=60; preload") == nil)
             #expect(RFC_6797.StrictTransportSecurity.parse("max-age=-1") == nil)
-            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=60;") == nil)
+        }
+
+        @Test
+        func `ignores unknown directives and skips empty ones`() {
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=60; preload")?.maxAge == 60)
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=60; report-uri=\"https://example.com\"")?.maxAge == 60)
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=60;")?.maxAge == 60)
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=60;; includeSubDomains")?.includeSubDomains == true)
+            #expect(RFC_6797.StrictTransportSecurity.parse(";max-age=60")?.maxAge == 60)
+        }
+
+        @Test
+        func `a repeated directive still invalidates the header`() {
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=60; max-age=70") == nil)
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=60; includeSubDomains; includeSubDomains") == nil)
         }
     }
 

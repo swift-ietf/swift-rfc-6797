@@ -34,7 +34,7 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
 
         for rawDirective in value.split(separator: ";", omittingEmptySubsequences: false) {
             let directive = trimOWS(rawDirective)
-            guard !directive.isEmpty else { return nil }
+            guard !directive.isEmpty else { continue }
 
             let parts = directive.split(
                 separator: "=",
@@ -58,7 +58,7 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
                 includeSubDomains = true
 
             default:
-                return nil
+                continue
             }
         }
 
