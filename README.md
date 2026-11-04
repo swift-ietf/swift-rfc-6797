@@ -1,18 +1,11 @@
 # swift-rfc-6797
 
-![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
+Use this package when a server sends an HSTS policy or a client reads one from a `Strict-Transport-Security` response header. Start from `RFC_6797.StrictTransportSecurity`, and use `RFC_9110.Field.Name.strictTransportSecurity` for the field name.
 
-Foundation-free Swift implementation of RFC 6797: HTTP Strict Transport Security (HSTS).
+## Laws
 
-The package provides the RFC 6797 `Strict-Transport-Security` field name and its defined `max-age` and `includeSubDomains` directives. Redirect handling, preload policy, and deployment policy are outside this specification package.
-
-```swift
-import RFC_6797
-
-let hsts = RFC_6797.StrictTransportSecurity(maxAge: 31_536_000, includeSubDomains: true)
-print(hsts.headerValue) // max-age=31536000; includeSubDomains
-```
-
-## License
-
-Apache 2.0. See [LICENSE.md](LICENSE.md).
+- A header without `max-age` is refused. `max-age` must be one or more ASCII digits that fit in 64 bits, so a sign, a quoted value or an empty value makes the whole header invalid.
+- A directive that appears twice makes the whole header invalid, even when both copies agree.
+- Directive names are matched without regard to case. Directives the package doesn't know, such as `preload`, are ignored, and so are empty ones between semicolons.
+- Spaces and tabs around each directive are ignored.
+- The header is written as `max-age` first, then `includeSubDomains` only when it is present, separated by a semicolon and a space.
