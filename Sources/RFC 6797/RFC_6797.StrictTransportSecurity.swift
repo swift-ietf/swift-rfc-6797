@@ -46,7 +46,7 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
             switch name {
             case "max-age":
                 guard maxAge == nil, parts.count == 2 else { return nil }
-                let digits = parts[1]
+                let digits = unquoted(parts[1])
                 guard !digits.isEmpty,
                     digits.utf8.allSatisfy({ $0 >= 48 && $0 <= 57 }),
                     let parsed = UInt64(digits)
@@ -72,6 +72,11 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
     }
 
     public var description: String { headerValue }
+
+    private static func unquoted(_ value: Substring) -> Substring {
+        guard value.count >= 2, value.first == "\"", value.last == "\"" else { return value }
+        return value.dropFirst().dropLast()
+    }
 
     private static func trimOWS(_ value: Substring) -> Substring {
         var result = value

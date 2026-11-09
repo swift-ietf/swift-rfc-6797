@@ -41,6 +41,21 @@ extension RFC_6797_StrictTransportSecurity_Tests {
         }
 
         @Test
+        func `accepts a quoted-string max-age`() {
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=\"31536000\"")?.maxAge == 31_536_000)
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=\"0\"; includeSubDomains")?.maxAge == 0)
+        }
+
+        @Test
+        func `rejects a malformed quoted max-age`() {
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=\"\"") == nil)
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=\"") == nil)
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=\"60") == nil)
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=\"6 0\"") == nil)
+            #expect(RFC_6797.StrictTransportSecurity.parse("max-age=\"\"60\"\"") == nil)
+        }
+
+        @Test
         func `ignores unknown directives and skips empty ones`() {
             #expect(RFC_6797.StrictTransportSecurity.parse("max-age=60; preload")?.maxAge == 60)
             #expect(RFC_6797.StrictTransportSecurity.parse("max-age=60; report-uri=\"https://example.com\"")?.maxAge == 60)
