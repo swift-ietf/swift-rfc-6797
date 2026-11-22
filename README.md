@@ -1,6 +1,6 @@
 # swift-rfc-6797
 
-Use this package when a server sends an HSTS policy or a client reads one from a `Strict-Transport-Security` response header. Start from `RFC_6797.StrictTransportSecurity`, and use `RFC_9110.Field.Name.strictTransportSecurity` for the field name.
+Use this package when a server sends an HSTS policy or a client reads one from a `Strict-Transport-Security` response header. Start from `IETF.RFC.`6797`.StrictTransportSecurity`, and use `IETF.RFC.`9110`.Field.Name.strictTransportSecurity` for the field name.
 
 ## Laws
 

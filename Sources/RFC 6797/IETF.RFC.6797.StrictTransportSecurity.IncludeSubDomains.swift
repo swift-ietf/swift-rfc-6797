@@ -1,4 +1,4 @@
-extension RFC_6797.StrictTransportSecurity {
+extension IETF.RFC.`6797`.StrictTransportSecurity {
 
     public enum IncludeSubDomains: Sendable {
         case absent

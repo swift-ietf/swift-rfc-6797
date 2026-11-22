@@ -1,6 +1,6 @@
 public import RFC_9110
 
-extension RFC_6797 {
+extension IETF.RFC.`6797` {
 
     public struct StrictTransportSecurity: Sendable {
 
@@ -15,7 +15,7 @@ extension RFC_6797 {
     }
 }
 
-extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, CustomStringConvertible {
+extension IETF.RFC.`6797`.StrictTransportSecurity: Codable, Equatable, Hashable, CustomStringConvertible {
     private init(maxAge: UInt64, includeSubDomains: Bool) {
         self.maxAge = maxAge
         self.includeSubDomains = includeSubDomains
@@ -86,10 +86,10 @@ extension RFC_6797.StrictTransportSecurity: Codable, Equatable, Hashable, Custom
     }
 }
 
-extension RFC_9110.Field.Name {
+extension IETF.RFC.`9110`.Field.Name {
 
     public static var strictTransportSecurity: Self {
-        get throws(RFC_9110.Field.Name.Error) {
+        get throws(IETF.RFC.`9110`.Field.Name.Error) {
             try Self("Strict-Transport-Security")
         }
     }
